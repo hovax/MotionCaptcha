@@ -7,19 +7,23 @@ angular.module('motionCaptchaApp')
 
     $scope.login = function(form) {
       $scope.submitted = true;
+      console.log($scope.user.captcha === "true");
 
       if(form.$valid) {
-        Auth.login({
-          email: $scope.user.email,
-          password: $scope.user.password
-        })
-        .then( function() {
+        if ($scope.user.captcha === "true") {
+          Auth.login({
+            email: $scope.user.email,
+            password: $scope.user.password,
+            captcha: $scope.user.captcha,
+          })
+          .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
-        })
-        .catch( function(err) {
-          $scope.errors.other = err.message;
-        });
+            $location.path('/admin');
+          })
+          .catch( function(err) {
+            $scope.errors.other = err.message;
+          });
+        }
       }
     };
 
