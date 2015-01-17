@@ -1,0 +1,48 @@
+<html>
+  <head>
+<script src="http://js.leapmotion.com/leap-0.6.3.min.js"></script>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript">
+
+  	 Leap.loop({enableGestures:true}, function (frame) {
+  		if(frame.gestures.length>0)
+  			console.log(frame.gestures.length);
+  		    var gestures=frame.gestures;
+  		    for(var i=0; i<gestures.length;i++){
+  		    	var gesture = gestures[i];
+  		    	if(gesture.type=="circle"){
+  		    		if(gesture.state=="stop")
+  		    			console.log("circle gesture registered");
+  		    	}
+  		    	else if(gesture.type=="swipe"){
+  		    		var horizontal=Math.abs(gesture.direction[0])>Math.abs(gesture.direction[1]);
+  		    		if(horizontal){
+  		    			if(gesture.direction[0]>0){
+  		    				console.log("horizontal swipe to the right");
+
+  		    			}
+  		    			else{
+  		    				console.log("horizontal swipe to the left");
+  		    			}
+
+  		    		}
+  		    		else
+  		    		{
+  		    			if (gesture.direction[1]>0) {
+  		    				console.log("vertical swipe up");
+  		    			}
+  		    			else{
+  		    				console.log("vertical swipe down");
+  		    			}
+  		    		}
+
+
+  		    	}
+
+  		    }
+  });
+  </script>
+</html>
