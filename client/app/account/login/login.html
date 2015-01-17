@@ -55,6 +55,19 @@
           </a>
         </div>
 
+
+        <div class="form-group">
+          <label>Gesture Input</label>
+           <input type="gesture" name="gesture" class="form-control" ng-model="user.gesture" required>
+           <button class="btn btn-inverse btn-lg btn-login" type="gesSubmit" ng-click="addGesture()">
+            Submit Gesture
+          </button>
+          <ul ng-repeat="motion in returnMotions">
+            <li>{{motion.name}}</li>
+          </ul>
+        </div>
+
+
       </form>
     </div>
   </div>

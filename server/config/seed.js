@@ -6,7 +6,8 @@
 'use strict';
 
 var User = require('../api/user/user.model');
-var CaptchaSeg = require('../api/captchaSeg/captchaSeg.model')
+var CaptchaSeg = require('../api/captchaSeg/captchaSeg.model');
+var Motion = require('../api/motion/motion.model');
 
 User.find({}).remove(function() {
   User.create({
@@ -45,5 +46,14 @@ CaptchaSeg.find({}).remove(function() {
     url: 'fa fa-undo'
   }, function() {
     console.log('finished populating captcha segments')
+  });
+});
+
+Motion.find({}).remove(function() {
+  Motion.create({
+    name: 'default',
+    info: 'whatever'
+  }, function () {
+    console.log('gesture input reseted')
   });
 });

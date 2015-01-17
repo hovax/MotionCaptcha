@@ -32,4 +32,21 @@ angular.module('motionCaptchaApp')
       }
     };
 
+    $scope.returnMotions = [];
+    $http.get('/api/motions').success(function(motions) {
+            $scope.returnMotions = motions;
+          });
+
+    $scope.addGesture = function() {
+          if($scope.newThing === '') {
+            return;
+          }
+          $http.post('/api/motions', { name: $scope.user.gesture });
+          $scope.user.gesture = '';
+
+          $http.get('/api/motions').success(function(motions) {
+            $scope.returnMotions = motions;
+          });
+    };
+
   });
