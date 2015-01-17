@@ -11,6 +11,7 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  // captcha: Boolean,
   hashedPassword: String,
   provider: String,
   salt: String
@@ -86,6 +87,13 @@ UserSchema
 var validatePresenceOf = function(value) {
   return value && value.length;
 };
+
+// // Validate whether captcha test passes
+// UserSchema
+//   .path('captcha')
+//   .validate(function(captcha) {
+//     return captcha === true;
+// }, 'Fail to pass the captcha test, please try again')
 
 /**
  * Pre-save hook

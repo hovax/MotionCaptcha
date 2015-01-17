@@ -1,9 +1,14 @@
 'use strict';
 
 angular.module('motionCaptchaApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location) {
+  .controller('LoginCtrl', function ($scope, Auth, $location, $http) {
     $scope.user = {};
     $scope.errors = {};
+    $scope.captchaSegs = [];
+
+    $http.get('/api/captchaSegs').success(function(captchaSegs) {
+      $scope.captchaSegs = captchaSegs;
+    });
 
     $scope.login = function(form) {
       $scope.submitted = true;

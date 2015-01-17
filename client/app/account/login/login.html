@@ -24,8 +24,12 @@
 
         <div class="form-group">
           <label>Captcha</label>
-
-          <input type="captcha" name="captcha" class="form-control" ng-model="user.captcha" required>
+          <div class="container">
+             <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="seg in captchaSegs">
+              <li><i style="font-size: 3em" class="{{seg.url}}"></i></li>
+            </ul>
+            <input type="captcha" name="captcha" class="form-control" ng-model="user.captcha" required>
+          </div>
         </div>
 
         <div class="form-group has-error">
