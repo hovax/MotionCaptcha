@@ -15,11 +15,11 @@ angular.module('motionCaptchaApp')
       console.log($scope.user.captcha === "true");
 
       if(form.$valid) {
+        console.log('Form valid');
         if ($scope.user.captcha === "true") {
           Auth.login({
             email: $scope.user.email,
             password: $scope.user.password,
-            captcha: $scope.user.captcha,
           })
           .then( function() {
           // Logged in, redirect to home
@@ -41,7 +41,13 @@ angular.module('motionCaptchaApp')
           if($scope.newThing === '') {
             return;
           }
-          $http.post('/api/motions', { name: $scope.user.gesture });
+          // $http.post('/api/motions', { name: $scope.user.gesture }).success(function(compareResult) {
+          //   $scope.compareResult = compareResult;
+          // });
+          $http.post('/api/motions', { name: $scope.user.gesture }).success(function(compareResult) {
+            $scope.compareResult = compareResult;
+          });
+
           $scope.user.gesture = '';
 
           $http.get('/api/motions').success(function(motions) {

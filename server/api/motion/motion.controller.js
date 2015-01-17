@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Motion = require('./motion.model');
+var CaptchaSeg = require('../captchaSeg/captchaSeg.model');
 
 // Get list of motions
 exports.index = function(req, res) {
@@ -25,6 +26,25 @@ exports.create = function(req, res) {
   Motion.create(req.body, function(err, motion) {
     if(err) { return handleError(res, err); }
     return res.json(201, motion);
+  });
+};
+
+// Compare inserted gesture with the existed captcha
+exports.compare = function(req, res) {
+  Motion.create(req.body, function(err, motion) {
+    if(err) { return handleError(res, err); }
+    // console.log(CaptchaSeg);
+    // CaptchaSeg.findById(0, function (err, seg) {
+    //   console.log(seg);
+    //   return seg;
+      // if (seg.name === motion.name) return true;
+    // });
+  CaptchaSeg.find(function (err, segs) {
+      // if(err) { return handleError(res, err); }
+      // return res.json(200, segs);
+      if (segs[0].name === motion.name) return res.json(201, true);
+      return res.json(201,false);
+    });
   });
 };
 

@@ -24,12 +24,10 @@
 
         <div class="form-group">
           <label>Captcha</label>
-          <div class="container">
              <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="seg in captchaSegs">
               <li><i style="font-size: 3em" class="{{seg.url}}"></i></li>
             </ul>
             <input type="captcha" name="captcha" class="form-control" ng-model="user.captcha" required>
-          </div>
         </div>
 
         <div class="form-group has-error">
@@ -56,7 +54,7 @@
         </div>
 
 
-        <div class="form-group">
+        <div class="group">
           <label>Gesture Input</label>
            <input type="gesture" name="gesture" class="form-control" ng-model="user.gesture" required>
            <button class="btn btn-inverse btn-lg btn-login" type="gesSubmit" ng-click="addGesture()">
@@ -65,6 +63,7 @@
           <ul ng-repeat="motion in returnMotions">
             <li>{{motion.name}}</li>
           </ul>
+          {{compareResult}}
         </div>
 
 
