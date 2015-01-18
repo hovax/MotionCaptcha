@@ -7,42 +7,46 @@
   </body>
   <script type="text/javascript">
 
-  	 Leap.loop({enableGestures:true}, function (frame) {
-  		if(frame.gestures.length>0)
-  			console.log(frame.gestures.length);
-  		    var gestures=frame.gestures;
-  		    for(var i=0; i<gestures.length;i++){
-  		    	var gesture = gestures[i];
-  		    	if(gesture.type=="circle"){
-  		    		if(gesture.state=="stop")
-  		    			console.log("circle gesture registered");
-  		    	}
-  		    	else if(gesture.type=="swipe"){
-  		    		var horizontal=Math.abs(gesture.direction[0])>Math.abs(gesture.direction[1]);
-  		    		if(horizontal){
-  		    			if(gesture.direction[0]>0){
-  		    				console.log("horizontal swipe to the right");
+     Leap.loop({enableGestures:true}, function (frame) {
+      if(frame.gestures.length>0){
 
-  		    			}
-  		    			else{
-  		    				console.log("horizontal swipe to the left");
-  		    			}
+        var gestures=frame.gestures;
+        var pointables=frame.pointables;
+        var hands = frame.hands;
+        if(hands.length>0)
+                  console.log(hands[0].confidence);
+        for(var i=0; i<gestures.length;i++){
+          var gesture = gestures[i];
 
-  		    		}
-  		    		else
-  		    		{
-  		    			if (gesture.direction[1]>0) {
-  		    				console.log("vertical swipe up");
-  		    			}
-  		    			else{
-  		    				console.log("vertical swipe down");
-  		    			}
-  		    		}
+          if(gesture.type=="circle" && gesture.state=="stop" && gesture.duration>350000){
+                     console.log("circle gesture registered");
+                   } //circle
 
+            else if(gesture.type=="swipe" && gesture.state=="stop"
+              && gesture.duration>90000){ //swipe
 
-  		    	}
+                var horizontal=Math.abs(gesture.direction[0])>Math.abs(gesture.direction[1]);
 
-  		    }
-  });
+                  if(horizontal){ //horizontal swipes
+                    if(gesture.direction[0]>0){
+                      console.log("horizontal swipe to the right");
+                    }
+                    else{
+                      console.log("horizontal swipe to the left");
+                    }
+                   }
+                  else  //vertical swipes
+                  {
+                    if (gesture.direction[1]>0) {
+                      console.log("vertical swipe up");
+                    }
+                    else{
+                      console.log("vertical swipe down");
+                    }
+                  }
+                }
+              }
+            } //if detected gestures
+  }); //end of loop
   </script>
 </html>
