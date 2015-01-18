@@ -28,8 +28,6 @@
              <ul class="pager col-sm-2" ng-repeat="seg in captchaSegs">
               <li><label></label><i style="font-size: 3em" class="{{seg.url}}"></i></li>
               </ul>
-          <!-- <input type="captcha" name="captcha" class="form-control" ng-model="user.captcha" required> -->
-          <button class="btn btn-inverse btn-lg btn-login" ng-click="detect()">Detect</button>
         </div>
 
         <div class="form-group has-error">
@@ -46,6 +44,7 @@
           <p class="help-block" ng-show="user.captcha != 'true' && submitted">Fail the Captcha auth test, please try again.</p>
         </div>
 
+<br>
         <div>
           <button class="btn btn-inverse btn-lg btn-login" type="submit" ng-click="login(form)">
             Login
@@ -58,13 +57,13 @@
 
         <div class="group">
           <label>Gesture Input</label>
-           <input type="gesture" name="gesture" class="form-control" ng-model="user.gesture" required>
+           <!-- <input type="gesture" name="gesture" class="form-control" ng-model="user.gesture" required> -->
            <button class="btn btn-inverse btn-lg btn-login" type="gesSubmit" ng-click="addGesture()">
             Submit Gesture
           </button>
-          <ul ng-repeat="motion in returnMotions">
+          <!-- <ul ng-repeat="motion in returnMotions">
             <li>{{motion.name}}</li>
-          </ul>
+          </ul> -->
           {{compareResult}}
         </div>
 
