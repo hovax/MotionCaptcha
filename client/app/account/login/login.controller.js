@@ -12,24 +12,27 @@ angular.module('motionCaptchaApp')
 
     $scope.login = function(form) {
       $scope.submitted = true;
-      console.log($scope.user.captcha === "true");
+      $http.put('/api/motions').success(function(captcha) {
+        console.log("patch called");
+        $scope.user.captcha = captcha;
 
-      if(form.$valid) {
-        console.log('Form valid');
-        if ($scope.user.captcha === "true") {
-          Auth.login({
-            email: $scope.user.email,
-            password: $scope.user.password,
-          })
-          .then( function() {
-          // Logged in, redirect to home
-            $location.path('/admin');
-          })
-          .catch( function(err) {
-            $scope.errors.other = err.message;
-          });
+        if(1) {
+          if ($scope.user.captcha === true) {
+            Auth.login({
+              email: $scope.user.email,
+              password: $scope.user.password,
+            })
+            .then( function() {
+              console.log('log');
+            // Logged in, redirect to home
+              $location.path('/admin');
+            })
+            .catch( function(err) {
+              $scope.errors.other = err.message;
+            });
+          }
         }
-      }
+      });
     };
 
     $scope.returnMotions = [];
@@ -53,6 +56,6 @@ angular.module('motionCaptchaApp')
           $http.get('/api/motions').success(function(motions) {
             $scope.returnMotions = motions;
           });
-    };
+        };
 
   });

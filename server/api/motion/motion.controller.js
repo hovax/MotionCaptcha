@@ -6,6 +6,7 @@ var CaptchaSeg = require('../captchaSeg/captchaSeg.model');
 var CaptchaList = require('../captchaList/captchaList.model');
 var i = 0;
 var compareList = [];
+var captcha = false;
 
 // Get list of motions
 exports.index = function(req, res) {
@@ -24,6 +25,12 @@ exports.show = function(req, res) {
   });
 };
 
+// get the captcha status
+exports.captchaStatus = function(req, res) {
+  captcha = (i === 3);
+  console.log(captcha);
+  return res.json(200, captcha);
+}
 // Creates a new motion in the DB.
 exports.create = function(req, res) {
   Motion.create(req.body, function(err, motion) {
@@ -50,23 +57,25 @@ exports.compare = function(req, res) {
 
       // compare one at a time, until everything matches
       // result string
-      console.log(captchaLists[0]);
-      console.log(captchaLists[0].content);
-      console.log(captchaSegs);
+      // console.log(captchaLists[0]);
+      // console.log(captchaLists[0].content);
+      // console.log(captchaSegs);
 
-      while (i <= 3) {
-        if (captchaSegs[captchaLists[0].content[i]].name === motion.name) {
-        compareList[i] = "pass";
-        i++;
-        } else {
-        compareList[i] = "fail";
-        }
-        return res.json(201,compareList);
-      }
+        while (i < 3) {
+          if (captchaSegs[captchaLists[0].content[i]].name === motion.name) {
+            console.log("pass");
+            compareList[i] = "pass";
+            i++;
+          } else {
+            console.log("fail");
+            compareList[i] = "fail";
+          }
+          return res.json(201,compareList);
+        };
       });
-    });
   });
-};
+});
+}
 
 // Updates an existing motion in the DB.
 exports.update = function(req, res) {

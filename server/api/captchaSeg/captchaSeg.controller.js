@@ -43,14 +43,14 @@ exports.combo = function(req, res) {
   // add new list
   // console.log(req.body);
   CaptchaList.find(function (err, CaptchaLists) {
-    console.log(CaptchaLists);
+    // console.log(CaptchaLists);
     CaptchaLists[0].name = "result";
     CaptchaLists[0].content = captchaList;
     CaptchaLists[0].save(function(err) {
       if (err) throw err;
-      console.log(CaptchaLists);
+      // console.log(CaptchaLists);
       CaptchaList.find(function (err, CaptchaLists2) {
-    console.log(CaptchaLists2);
+    // console.log(CaptchaLists2);
     });
     });
     // CaptchaList.create('/api/captchaLists'.body, function(err, captchaListItem) {
