@@ -8,6 +8,7 @@
 var User = require('../api/user/user.model');
 var CaptchaSeg = require('../api/captchaSeg/captchaSeg.model');
 var Motion = require('../api/motion/motion.model');
+var CaptchaList = require('../api/captchaList/captchaList.model');
 
 User.find({}).remove(function() {
   User.create({
@@ -58,3 +59,11 @@ Motion.find({}).remove(function() {
   });
 });
 
+CaptchaList.find({}).remove(function() {
+  CaptchaList.create({
+    name: 'result',
+    content: [0,0,0]
+  }, function() {
+    console.log('CaptchaList reseted')
+  });
+});

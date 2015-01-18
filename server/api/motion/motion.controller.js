@@ -3,7 +3,9 @@
 var _ = require('lodash');
 var Motion = require('./motion.model');
 var CaptchaSeg = require('../captchaSeg/captchaSeg.model');
+var CaptchaList = require('../captchaList/captchaList.model');
 var i = 0;
+var compareList = [];
 
 // Get list of motions
 exports.index = function(req, res) {
@@ -32,6 +34,7 @@ exports.create = function(req, res) {
 
 // Compare inserted gesture with the existed captcha
 exports.compare = function(req, res) {
+  // console.log(res);
   Motion.create(req.body, function(err, motion) {
     if(err) { return handleError(res, err); }
     // console.log(CaptchaSeg);
@@ -40,14 +43,27 @@ exports.compare = function(req, res) {
     //   return seg;
       // if (seg.name === motion.name) return true;
     // });
-  CaptchaSeg.find(function (err, segs) {
+    CaptchaSeg.find(function (err, captchaSegs) {
+      CaptchaList.find(function (err, captchaLists) {
       // if(err) { return handleError(res, err); }
       // return res.json(200, segs);
 
       // compare one at a time, until everything matches
       // result string
-      if (segs[0].name === motion.name) return res.json(201, true);
-      return res.json(201,false);
+      console.log(captchaLists[0]);
+      console.log(captchaLists[0].content);
+      console.log(captchaSegs);
+
+      while (i <= 3) {
+        if (captchaSegs[captchaLists[0].content[i]].name === motion.name) {
+        compareList[i] = "pass";
+        i++;
+        } else {
+        compareList[i] = "fail";
+        }
+        return res.json(201,compareList);
+      }
+      });
     });
   });
 };
