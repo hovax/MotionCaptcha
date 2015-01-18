@@ -57,3 +57,4 @@ Motion.find({}).remove(function() {
     console.log('gesture input reseted')
   });
 });
+

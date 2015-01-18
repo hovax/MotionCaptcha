@@ -2,9 +2,13 @@
 
 var _ = require('lodash');
 var CaptchaSeg = require('./captchaSeg.model');
+var CaptchaList = require('../captchaList/captchaList.model');
 var i = 0;
+var temp = 0;
 var CaptchaCombo = [];
-var result = [];
+var CaptchaResult = [];
+var captchaList = [];
+
 // Get list of captchaSegs
 exports.index = function(req, res) {
   CaptchaSeg.find(function (err, captchaSegs) {
@@ -15,14 +19,37 @@ exports.index = function(req, res) {
 
 // get combo of 3 captcha segs
 exports.combo = function(req, res) {
+  captchaList = [];
   CaptchaSeg.find(function (err, captchaSegs) {
-  console.log(captchaSegs);
   for (i = 0; i < 3; i++) {
-    CaptchaCombo.push(captchaSegs[Math.floor(Math.random() * 5)]);
+    temp = Math.floor(Math.random() * 5);
+    captchaList.push(temp);
+    CaptchaCombo.push(captchaSegs[temp]);
   }
-  result = CaptchaCombo;
+  // console.log(CaptchaList);
+
+  // CaptchaList.findById(req.params.id, function (err, captchaList) {
+  //   var updated = _.merge(captchaList, req.body);
+  //   updated.save(function (err) {
+  //     if (err) { return handleError(res, err); }
+  //     return res.json(200, captchaSeg);
+  //   });
+  // });
+  // CaptchaList.find(function (err, captchaList) {
+  //   console.log(CaptchaList)
+  // });
+
+  // clear previous list
+  // add new list
+  CaptchaList.find(function (err, CaptchaLists) {
+    CaptchaLists[0].name = "result";
+    CaptchaLists[0].content = captchaList;
+    console.log(CaptchaLists);
+  })
+
+  CaptchaResult = CaptchaCombo;
   CaptchaCombo = [];
-  return res.json(200, result);
+  return res.json(200, CaptchaResult);
   });
 };
 

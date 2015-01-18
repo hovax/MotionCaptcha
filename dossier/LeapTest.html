@@ -13,17 +13,17 @@
         var gestures=frame.gestures;
         var pointables=frame.pointables;
         var hands = frame.hands;
-        if(hands.length>0)
-                  console.log(hands[0].confidence);
+        // if(hands.length>0)
+        //           console.log(hands[0].confidence);
         for(var i=0; i<gestures.length;i++){
           var gesture = gestures[i];
 
-          if(gesture.type=="circle" && gesture.state=="stop" && gesture.duration>350000){
+          if(gesture.type=="circle" && gesture.state=="stop" && gesture.duration>200000){
                      console.log("circle gesture registered");
                    } //circle
 
             else if(gesture.type=="swipe" && gesture.state=="stop"
-              && gesture.duration>90000){ //swipe
+              && gesture.duration>10000){ //swipe
 
                 var horizontal=Math.abs(gesture.direction[0])>Math.abs(gesture.direction[1]);
 
