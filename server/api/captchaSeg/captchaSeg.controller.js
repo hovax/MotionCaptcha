@@ -2,7 +2,9 @@
 
 var _ = require('lodash');
 var CaptchaSeg = require('./captchaSeg.model');
-
+var i = 0;
+var CaptchaCombo = [];
+var result = [];
 // Get list of captchaSegs
 exports.index = function(req, res) {
   CaptchaSeg.find(function (err, captchaSegs) {
@@ -10,6 +12,20 @@ exports.index = function(req, res) {
     return res.json(200, captchaSegs);
   });
 };
+
+// get combo of 3 captcha segs
+exports.combo = function(req, res) {
+  CaptchaSeg.find(function (err, captchaSegs) {
+  console.log(captchaSegs);
+  for (i = 0; i < 3; i++) {
+    CaptchaCombo.push(captchaSegs[Math.floor(Math.random() * 5)]);
+  }
+  result = CaptchaCombo;
+  CaptchaCombo = [];
+  return res.json(200, result);
+  });
+};
+
 
 // Get a single captchaSeg
 exports.show = function(req, res) {

@@ -4,8 +4,8 @@
   <div class="row">
     <div class="col-sm-12">
       <h1>Login</h1>
-      <p>Accounts are reset on server restart from <code>server/config/seed.js</code>. Default account is <code>test@test.com</code> / <code>test</code></p>
-      <p>Admin account is <code>admin@admin.com</code> / <code>admin</code></p>
+      <!-- <p>Accounts are reset on server restart from <code>server/config/seed.js</code>. Default account is <code>test@test.com</code> / <code>test</code></p>
+      <p>Admin account is <code>admin@admin.com</code> / <code>admin</code></p> -->
     </div>
     <div class="col-sm-12">
       <form class="form" name="form" ng-submit="login(form)" novalidate>
@@ -24,10 +24,11 @@
 
         <div class="form-group">
           <label>Captcha</label>
-             <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="seg in captchaSegs">
-              <li><i style="font-size: 3em" class="{{seg.url}}"></i></li>
-            </ul>
-            <input type="captcha" name="captcha" class="form-control" ng-model="user.captcha" required>
+          <br>
+             <ul class="pager col-sm-2" ng-repeat="seg in captchaSegs">
+              <li><label></label><i style="font-size: 3em" class="{{seg.url}}"></i></li>
+              </ul>
+          <input type="captcha" name="captcha" class="form-control" ng-model="user.captcha" required>
         </div>
 
         <div class="form-group has-error">
